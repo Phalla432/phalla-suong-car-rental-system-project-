@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Contact - Car Rental</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(180deg, #f7f9fc 0%, #eef2f7 100%);
+            min-height: 100vh;
+        }
+
+        .contact-card {
+            max-width: 1000px;
+            margin: 48px auto;
+            padding: 28px;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 8px 24px rgba(29, 31, 36, 0.06);
+        }
+
+        .contact-info h6 {
+            font-weight: 700;
+            color: #0d6efd;
+        }
+
+        .map-placeholder {
+            background: #f1f3f5;
+            height: 220px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6c757d;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="contact-card">
+            <div class="row g-4">
+                <div class="col-12 col-md-6">
+                    <h3 class="mb-1">Get in touch</h3>
+                    <p class="text-muted mb-3">Questions about a booking, availability, or partnership? Send us a
+                        message and we'll get back within 24 hours.</p>
+                    <!-- 
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              {% for category, msg in messages %}
+                <div class="alert alert-{{ 'danger' if category == 'error' else category }}">{{ msg }}</div>
+              {% endfor %}
+            {% endif %}
+          {% endwith %} -->
+
+                    <form method="POST" action="{{ url_for('main.contact') }}" novalidate>
+                        <!-- {% if csrf_token %}
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        {% endif %} -->
+
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name</label>
+                            <input id="name" name="name" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input id="email" name="email" type="email" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Phone (optional)</label>
+                            <input id="phone" name="phone" type="tel" class="form-control">
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Subject</label>
+                            <input id="subject" name="subject" type="text" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea id="message" name="message" rows="5" class="form-control"
+                                required></textarea>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Send message</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="contact-info mb-3">
+                        <h6>Contact info</h6>
+                        <p class="mb-1"><strong>Phone:</strong> <a href="tel:+1234567890">068544893</a></p>
+                        <p class="mb-1"><strong>Email:</strong> <a
+                                href="mailto:support@carrental.example">phalla.suong@car-rental.support/a></p>
+                        <p class="mb-1"><strong>Address:</strong>Trapang Chouk village, Sen Sok district, Kampong Spue
+                            province.</p>
+                        <p class="mb-0 text-muted small">Business hours: Mon–Fri 9:00–18:00</p>
+                    </div>
+
+                    <div class="map-placeholder mb-3" role="img" aria-label="Map showing office location">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4641.954016139233!2d104.88050867576199!3d11.550859788648934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x310951add5e2cd81%3A0x171e0b69c7c6f7ba!2sPasserelles%20num%C3%A9riques%20Cambodia%20(PNC)!5e1!3m2!1sen!2skh!4v1761617216117!5m2!1sen!2skh"
+                            width="500" height="240" style="border:0;" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+
+                    <div>
+                        <h6 class="mb-2">Follow us</h6>
+                        <div class="d-flex gap-2">
+                            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Facebook">Facebook</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Twitter">Twitter</a>
+                            <a class="btn btn-outline-secondary btn-sm" href="#" aria-label="Instagram">Instagram</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

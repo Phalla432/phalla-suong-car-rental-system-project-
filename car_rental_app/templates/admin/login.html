@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Register</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Inter Font -->
+  <link href="https://rsms.me/inter/inter.css" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <style>
+    .password-toggle {
+      cursor: pointer;
+    }
+
+    .error-text {
+      @apply text-red-600 text-sm mt-1;
+    }
+  </style>
+</head>
+
+<body
+  class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4 font-sans">
+
+  <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md transform transition-all hover:scale-[1.01]">
+
+    <!-- Logo / Title -->
+    <div class="text-center mb-8">
+      <div class="w-16 h-16 bg-indigo-600 rounded-xl flex items-center justify-center mx-auto mb-4">
+        <i data-lucide="shield" class="w-8 h-8 text-white"></i>
+      </div>
+      <h1 class="text-3xl font-bold text-gray-800">Login as Admin Account</h1>
+      <p class="text-gray-500 mt-2">Fill in the details to get started</p>
+    </div>
+
+    <!-- Register Form -->
+    <form id="registerForm" class="space-y-5">
+
+      <!-- Full Name -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Full Name
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i data-lucide="user" class="w-5 h-5 text-gray-400"></i>
+          </div>
+          <input type="text" name="fullname" required
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            placeholder="John Doe" />
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Email Address
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i data-lucide="mail" class="w-5 h-5 text-gray-400"></i>
+          </div>
+          <input type="email" name="email" required
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            placeholder="admin@example.com" />
+        </div>
+      </div>
+
+      <!-- Username -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Username
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i data-lucide="at-sign" class="w-5 h-5 text-gray-400"></i>
+          </div>
+          <input type="text" name="username" required minlength="4"
+            class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            placeholder="admin123" />
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">
+          Password
+        </label>
+        <div class="relative">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <i data-lucide="lock" class="w-5 h-5 text-gray-400"></i>
+          </div>
+          <input type="password" name="password" id="password" required minlength="6"
+            class="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition"
+            placeholder="••••••••" />
+          <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+            <i data-lucide="eye" id="togglePassword" class="w-5 h-5 text-gray-400 password-toggle"></i>
+          </div>
+        </div>
+        <p class="text-xs text-gray-500 mt-1">Minimum 6 characters</p>
+      </div>
+
+      <!-- Submit Button -->
+      <a href="./dashboard.html"><button type=""
+        class="w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition transform hover:-translate-y-0.5 shadow-lg">
+        Login as Admin
+      </button></a>
+
+      <!-- Login Link -->
+      <p class="text-center text-sm text-gray-600 mt-6">
+        Already have an account?
+        <a href="./dashboard.html" class="text-indigo-600 font-medium hover:underline">Sign in</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    lucide.createIcons();
+
+    // Toggle Password Visibility
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordField = document.getElementById('password');
+    const confirmField = document.getElementById('confirm_password');
+    const matchText = document.getElementById('password-match');
+
+    togglePassword.addEventListener('click', () => {
+      const type = passwordField.type === 'password' ? 'text' : 'password';
+      passwordField.type = type;
+      confirmField.type = type;
+      togglePassword.setAttribute('data-lucide', type === 'password' ? 'eye' : 'eye-off');
+      lucide.createIcons();
+    });
+
+    // Validate Password Match
+    document.getElementById('registerForm').addEventListener('submit', function (e) {
+      if (passwordField.value !== confirmField.value) {
+        e.preventDefault();
+        matchText.classList.remove('hidden');
+      } else {
+        matchText.classList.add('hidden');
+      }
+    });
+
+    // Optional: Send to backend
+    // document.getElementById('registerForm').addEventListener('submit', async (e) => {
+    //   e.preventDefault();
+    //   const formData = new FormData(e.target);
+    //   const data = Object.fromEntries(formData);
+    //   const res = await fetch('/api/register', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(data)
+    //   });
+    //   const result = await res.json();
+    //   if (result.success) {
+    //     window.location.href = '/dashboard';
+    //   } else {
+    //     alert(result.message);
+    //   }
+    // });
+  </script>
+</body>
+
+</html>
