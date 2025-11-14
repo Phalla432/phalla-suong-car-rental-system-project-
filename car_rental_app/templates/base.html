@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <title>SpeedRent - Car Rental</title>
+
+    <!-- Tailwind CSS CDN (utility classes) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CDN (icons) -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Custom CSS File -->
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-lg sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between items-center h-16">
+        
+        <!-- Logo -->
+        <div class="flex items-center">
+          <i class="fas fa-car text-blue-600 text-3xl mr-2"></i>
+          <span class="logo text-2xl font-bold text-blue-700">SpeedRent</span>
+        </div>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-8">
+          <a href="/car_rental_app/templates/base.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Home</a>
+          <a href="/car_rental_app/templates/about.html" class="text-gray-700 hover:text-blue-600 font-medium transition">About Us</a>
+          <a href="/car_rental_app/templates/contact.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Contact Us</a>
+        </div>
+
+        <!-- Auth Buttons -->
+        <div class="hidden md:flex space-x-4">
+          <a href="/car_rental_app/templates/admin/login.html" class="text-gray-700 hover:text-blue-600 font-medium transition">Login as Admin</a>
+          <a href="/car_rental_app/templates/users/register.html" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition font-medium">Register</a>
+          <a href="/car_rental_app/templates/base.html" class="text-red-600 hover:text-red-700 font-medium transition">Logout</a>
+        </div>
+
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button id="menu-btn" class="text-gray-700 focus:outline-none">
+            <i class="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+      <div class="px-4 pt-2 pb-3 space-y-1">
+        <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Home</a>
+        <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Dashboard</a>
+        <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">History</a>
+        <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Admin</a>
+        <hr class="my-2">
+        <a href="#" class="block px-3 py-2 text-gray-700 hover:bg-gray-100 rounded">Login</a>
+        <a href="#" class="block px-3 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Register</a>
+        <a href="#" class="block px-3 py-2 text-red-600 hover:bg-red-50 rounded">Logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="text-4xl md:text-6xl font-bold mb-4">Rent Your Dream Car Today</h1>
+      <p class="text-lg md:text-xl mb-8">Affordable rates • Premium vehicles • Easy booking</p>
+      <a href="/car_rental_app/templates/users/dashboard.html" class="bg-white text-blue-600 px-8 py-3 rounded-full font-semibold hover:bg-gray-100 transition text-lg">
+        Browse Cars <i class="fas fa-arrow-right ml-2"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="p-6">
+          <i class="fas fa-car-side text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Wide Selection</h3>
+          <p class="text-gray-600">Sedans, SUVs, luxury cars — choose from 100+ vehicles.</p>
+        </div>
+        <div class="p-6">
+          <i class="fas fa-clock text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+          <p class="text-gray-600">We're here to help anytime, anywhere.</p>
+        </div>
+        <div class="p-6">
+          <i class="fas fa-shield-alt text-5xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Fully Insured</h3>
+          <p class="text-gray-600">Drive with confidence — full coverage included.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="flex justify-center items-center mb-4">
+        <i class="fas fa-car text-blue-400 text-3xl mr-2"></i>
+        <span class="text-2xl font-bold">SpeedRent</span>
+      </div>
+      <p class="mb-4">&copy; 2025 SpeedRent. All rights reserved.</p>
+      <div class="flex justify-center space-x-6">
+        <a href="#" class="hover:text-blue-400"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="hover:text-blue-400"><i class="fab fa-twitter"></i></a>
+        <a href="#" class="hover:text-blue-400"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Custom JavaScript File -->
+  <script src="script.js" defer></script>
+</body>
+<!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ url_for('static', filename='js/main.js') }}"></script> -->
+
+</html>

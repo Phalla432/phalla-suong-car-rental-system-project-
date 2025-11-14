@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard - SpeedRent</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f7fa;
+      color: #333;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* Header - Responsive */
+    header {
+      background: #1e82d3;
+      color: #fff;
+      padding: 1rem 5%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo {
+      font-size: clamp(1.5rem, 5vw, 1.8rem);
+      font-weight: 700;
+    }
+
+    .logo span {
+      color: #ffd700;
+    }
+
+    .user-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      font-size: 0.9rem;
+    }
+
+    .logout-btn {
+      background:#1e82d3;
+      color: red;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 5%;
+    }
+
+    /* Tabs - Responsive */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid #ddd;
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .tab {
+      padding: 0.7rem 1.2rem;
+      cursor: pointer;
+      font-weight: 600;
+      border-radius: 8px 8px 0 0;
+      white-space: nowrap;
+      font-size: 0.95rem;
+      transition: all 0.3s;
+    }
+
+    .tab.active {
+      background:#1e82d3;
+      color: #fff;
+    }
+
+    /* Filters - Stack on Mobile */
+    .filters {
+      background: #fff;
+      padding: 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      margin-bottom: 1.5rem;
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .filters {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .filter-group {
+      min-width: 0;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    /* Car Grid - Responsive */
+    .car-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.2rem;
+    }
+
+    @media (min-width: 640px) {
+      .car-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .car-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    .car-card {
+      background: #fff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .car-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .car-img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .car-info {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .car-info h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .price {
+      font-size: 1.3rem;
+      color: #1e3c72;
+      font-weight: 700;
+    }
+
+    .seats {
+      color: #666;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .btn-book {
+      width: 100%;
+      padding: 0.7rem;
+      background: #1e82d3;
+      color: white;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 8px;
+      margin-top: auto;
+      font-size: 1rem;
+    }
+
+    /* Booking History */
+    .booking-item {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .cancel-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    .cancelled {
+      opacity: 0.6;
+      text-decoration: line-through;
+    }
+
+    /* Modal - Responsive */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: #fff;
+      width: 100%;
+      max-width: 600px;
+      border-radius: 15px;
+      overflow: hidden;
+      animation: slideDown 0.4s ease;
+    }
+
+    .modal-header {
+      padding: 1.2rem;
+      background: #1e3c72;
+      color: #fff;
+      text-align: center;
+      position: relative;
+    }
+
+    .close {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.8rem;
+      cursor: pointer;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+    }
+
+    .modal-body img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+
+    .modal-body label {
+      font-size: 1rem;
+      margin-top: 1rem;
+    }
+
+    .modal-body input {
+      margin-bottom: 1rem;
+    }
+
+    /* Empty State */
+    .empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: #777;
+      font-size: 1.1rem;
+    }
+
+    /* Utility */
+    @keyframes slideDown {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Hide tab content */
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Success Modal -->
+  <div class="modal" id="successModal">
+    <div class="modal-content" style="max-width: 500px; text-align: center;">
+      <div class="modal-header" style="background: #28a745; color: white;">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Booking Confirmed!</h2>
+      </div>
+      <div class="modal-body" style="padding: 2rem;">
+        <i class="fas fa-check-circle" style="font-size: 60px; color: #28a745; margin-bottom: 1rem;"></i>
+        <h3 id="successCarName">Toyota Camry</h3>
+        <p><strong>Dates:</strong> <span id="successDates">Oct 30 - Oct 31, 2025</span></p>
+        <p><strong>Duration:</strong> <span id="successDays">2</span> days</p>
+        <p><strong>Total Amount:</strong> <span id="successTotal" style="font-size: 1.4rem; color: #1e3c72;">$130</span>
+        </p>
+        <button class="btn-book" onclick="closeModal(); switchToBookings();" style="margin-top: 1.5rem;">
+          View in My Bookings
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Helper to switch to My Bookings tab
+    function switchToBookings() {
+      document.querySelector('.tab[data-tab="bookings"]').click();
+    }
+  </script>
+  <!-- Header -->
+  <header>
+    <div class="logo">Speed<span>Rent</span></div>
+    <div class="user-info">
+      <span>Welcome, <strong id="userEmail">user@example.com</strong></span>
+      <a href="/car_rental_app/templates/base.html"><button class="logout-btn" onclick="logout()">Logout</button></a>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <!-- Tabs -->
+    <div class="tabs">
+      <div class="tab active" data-tab="browse">Browse Cars</div>
+      <div class="tab" data-tab="bookings">My Bookings</div>
+    </div>
+
+    <!-- Browse Cars Tab -->
+    <div id="browse" class="tab-content">
+
+      <!-- Filters -->
+      <div class="filters">
+        <div class="filter-group">
+          <label>Search by Brand/Model</label>
+          <input type="text" id="searchInput" placeholder="e.g. Toyota Camry">
+        </div>
+        <div class="filter-group">
+          <label>Seats</label>
+          <select id="seatFilter">
+            <option value="">Any</option>
+            <option value="4">4 Seats</option>
+            <option value="5">5 Seats</option>
+            <option value="7">7 Seats</option>
+          </select>
+        </div>
+        <div class="filter-group">
+          <label>Price Range (per day)</label>
+          <input type="range" id="priceRange" min="30" max="300" value="300">
+          <span id="priceValue">$30 - $300</span>
+        </div>
+      </div>
+
+      <!-- Car Grid -->
+      <div class="car-grid" id="carGrid">
+        <!-- Cars loaded by JS -->
+      </div>
+    </div>
+
+    <!-- Bookings Tab -->
+    <div id="bookings" class="tab-content" style="display: none;">
+      <h2>My Booking History</h2>
+      <div id="bookingList">
+        <!-- Bookings loaded by JS -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Car Details & Booking Modal -->
+  <div class="modal" id="carModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">Car Name</h2>
+      </div>
+      <div class="modal-body">
+        <img id="modalImg" src="" alt="" style="width:100%; border-radius:8px; margin-bottom:1rem;">
+        <p><strong>Price:</strong> <span id="modalPrice">$99/day</span></p>
+        <p><strong>Seats:</strong> <span id="modalSeats">5</span></p>
+        <p><strong>Description:</strong> <span id="modalDesc"></span></p>
+
+        <div style="margin-top:1.5rem;">
+          <label><strong>Start Date</strong></label>
+          <input type="date" id="startDate" required style="width:100%; margin-bottom:0.5rem;">
+          <label><strong>End Date</strong></label>
+          <input type="date" id="endDate" required style="width:100%; margin-bottom:1rem;">
+          <button class="btn-book" onclick="bookCar()">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sample Car Data
+    const cars = [
+      {
+        id: 1,
+        model: "Toyota Camry",
+        brand: "Toyota",
+        price: 65,
+        seats: 5,
+        desc: "Reliable sedan with great fuel economy.",
+        img: "https://hips.hearstapps.com/hmg-prod/images/2025-toyota-camry-xse-awd-123-66993cc94cc40.jpg?crop=0.676xw:0.506xh;0.101xw,0.399xh&resize=1200:*"
+      },
+      {
+        id: 2,
+        model: "Honda CR‑V",
+        brand: "Honda",
+        price: 85,
+        seats: 5,
+        desc: "Spacious SUV perfect for families.",
+        img: "https://i.ytimg.com/vi/JnrnH88n9-Y/maxresdefault.jpg"
+      },
+      {
+        id: 3,
+        model: "BMW X5",
+        brand: "BMW",
+        price: 150,
+        seats: 5,
+        desc: "Luxury SUV with premium interior.",
+        img: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400"
+      },
+      {
+        id: 4,
+        model: "Tesla Model 3",
+        brand: "Tesla",
+        price: 120,
+        seats: 5,
+        desc: "Electric vehicle with autopilot.",
+        img: "https://images.prismic.io/carwow/aCxkIidWJ-7kSVx9_TeslaModel32025exteriorfrontthreequarterviewdriving.jpg?auto=format&cs=tinysrgb&fit=max&q=60"
+      },
+      {
+        id: 5,
+        model: "Ford Mustang",
+        brand: "Ford",
+        price: 180,
+        seats: 4,
+        desc: "Classic muscle car with V8 power.",
+        img: "https://iris.carsalesportal.co.za/cdn/lazarus-motor-group/posts/202411/New-Ford-Mustang-GT-Redefines-Driving-Freedom-with-Immersive-Digital-Cockpit-Advanced-5-0L-V8-Engine-and-Bold-Style-1.jpg"
+      },
+      {
+        id: 6,
+        model: "Mercedes Sprinter",
+        brand: "Mercedes",
+        price: 220,
+        seats: 7,
+        desc: "Perfect for group trips and tours.",
+        img: "https://imgx.gridoto.com/crop/0x119:1600x1138/700x465/filters:watermark(file/2017/gridoto/img/watermark.png,5,5,60)/photo/2021/12/02/modifikasikabin-mercedes-benzspr-20211202102915.jpg"
+      }
+    ];
+
+    // Global variables
+    let currentCar = null;
+    let bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+    // Load user email
+    const urlParams = new URLSearchParams(window.location.search);
+    const userEmail = urlParams.get('email') || 'user@example.com';
+    document.getElementById('userEmail').textContent = userEmail;
+
+    // Render Cars
+    function renderCars(filtered = cars) {
+      const grid = document.getElementById('carGrid');
+      grid.innerHTML = filtered.map(car => `
+      <div class="car-card" onclick="openCarModal(${car.id})">
+        <img src="${car.img}" alt="${car.model}" class="car-img">
+        <div class="car-info">
+          <h3>${car.model}</h3>
+          <p class="price">$${car.price}/day</p>
+          <p class="seats">${car.seats} seats</p>
+          <button class="btn-book">Book Now</button>
+        </div>
+      </div>
+    `).join('');
+    }
+
+    // Open Modal
+    function openCarModal(id) {
+      currentCar = cars.find(c => c.id === id);
+      document.getElementById('modalTitle').textContent = currentCar.model;
+      document.getElementById('modalImg').src = currentCar.img;
+      document.getElementById('modalPrice').textContent = `$${currentCar.price}/day`;
+      document.getElementById('modalSeats').textContent = currentCar.seats;
+      document.getElementById('modalDesc').textContent = currentCar.desc;
+      document.getElementById('carModal').style.display = 'flex';
+
+      // Reset dates
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('startDate').value = today;
+      document.getElementById('startDate').min = today;
+      document.getElementById('endDate').value = '';
+      document.getElementById('endDate').min = today;
+    }
+
+    function closeModal() {
+      document.getElementById('carModal').style.display = 'none';
+      document.getElementById('successModal').style.display = 'none';
+    }
+
+    // Book Car + Show Success
+    function bookCar() {
+      const start = document.getElementById('startDate').value;
+      const end = document.getElementById('endDate').value;
+
+      if (!start || !end) {
+        alert("Please select both start and end dates.");
+        return;
+      }
+
+      if (new Date(end) < new Date(start)) {
+        alert("End date cannot be before start date.");
+        return;
+      }
+
+      const days = Math.ceil((new Date(end) - new Date(start)) / (1000 * 60 * 60 * 24)) + 1;
+      const total = days * currentCar.price;
+
+      const booking = {
+        id: Date.now(),
+        car: { ...currentCar },
+        start,
+        end,
+        days,
+        total,
+        status: 'upcoming',
+        bookedAt: new Date().toLocaleString()
+      };
+
+      // Store in localStorage
+      bookings.push(booking);
+      localStorage.setItem('bookings', JSON.stringify(bookings));
+
+      // Show Success Modal
+      showSuccessModal(booking);
+
+      // Update My Bookings tab
+      renderBookings();
+    }
+
+    // Success Modal
+    function showSuccessModal(booking) {
+      const successModal = document.getElementById('successModal');
+      document.getElementById('successCarName').textContent = booking.car.model;
+      document.getElementById('successDates').textContent = `${booking.start} to ${booking.end}`;
+      document.getElementById('successDays').textContent = booking.days;
+      document.getElementById('successTotal').textContent = `$${booking.total}`;
+      successModal.style.display = 'flex';
+      closeModal(); // Close booking modal
+    }
+
+    // Render Bookings
+    function renderBookings() {
+      const list = document.getElementById('bookingList');
+      if (bookings.length === 0) {
+        list.innerHTML = '<p class="empty">No bookings yet. Start exploring cars!</p>';
+        return;
+      }
+
+      const now = new Date();
+      list.innerHTML = bookings.map(b => {
+        const canCancel = new Date(b.start) > now && b.status !== 'cancelled';
+        const statusText = b.status === 'cancelled' ? '<em>(Cancelled)</em>' : '';
+        return `
+        <div class="booking-item ${b.status === 'cancelled' ? 'cancelled' : ''}">
+          <div>
+            <strong>${b.car.model}</strong> ${statusText}<br>
+            ${b.start} to ${b.end} (${b.days} day${b.days > 1 ? 's' : ''})<br>
+            Total: <strong>$${b.total}</strong> | Booked: ${b.bookedAt}
+          </div>
+          <div>
+            ${canCancel
+            ? `<button class="cancel-btn" onclick="cancelBooking(${b.id})">Cancel</button>`
+            : '<em>Cannot cancel</em>'
+          }
+          </div>
+        </div>
+      `;
+      }).join('');
+    }
+
+    // Cancel Booking
+    function cancelBooking(id) {
+      if (confirm("Are you sure you want to cancel this booking?")) {
+        bookings = bookings.map(b => b.id === id ? { ...b, status: 'cancelled' } : b);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        renderBookings();
+      }
+    }
+
+    // Filters
+    document.getElementById('searchInput').addEventListener('input', filterCars);
+    document.getElementById('seatFilter').addEventListener('change', filterCars);
+    document.getElementById('priceRange').addEventListener('input', function () {
+      document.getElementById('priceValue').textContent = `$30 - $${this.value}`;
+      filterCars();
+    });
+
+    function filterCars() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const seats = document.getElementById('seatFilter').value;
+      const maxPrice = document.getElementById('priceRange').value;
+
+      const filtered = cars.filter(car => {
+        const matchesSearch = car.model.toLowerCase().includes(query) || car.brand.toLowerCase().includes(query);
+        const matchesSeats = !seats || car.seats == seats;
+        const matchesPrice = car.price <= maxPrice;
+        return matchesSearch && matchesSeats && matchesPrice;
+      });
+
+      renderCars(filtered);
+    }
+
+    // Tab Switching
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+        tab.classList.add('active');
+        const tabId = tab.dataset.tab;
+        document.getElementById(tabId).style.display = 'block';
+        if (tabId === 'bookings') renderBookings();
+      });
+    });
+
+    // Logout
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        localStorage.removeItem('bookings');
+        window.location.href = 'index.html';
+      }
+    }
+
+    // Close modals on outside click
+    window.onclick = function (e) {
+      const carModal = document.getElementById('carModal');
+      const successModal = document.getElementById('successModal');
+      if (e.target === carModal || e.target === successModal) {
+        closeModal();
+      }
+    }
+
+    // Initialize
+    renderCars();
+    renderBookings();
+  </script>
+
+</body>
+
+</html>

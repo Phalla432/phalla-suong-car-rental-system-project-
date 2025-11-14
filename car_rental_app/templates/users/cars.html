@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Car Rental – Select a vehicle group</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* -------------------------------------------------
+   Global resets & variables
+   ------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --purple: #438ae9;
+            --purple-light: #e2d9f3;
+            --gray: #6c757d;
+            --dark: #212529;
+            --light: #f8f9fa;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #fff;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /* -------------------------------------------------
+   Header
+   ------------------------------------------------- */
+        header {
+            background: #fff;
+            border-bottom: 1px solid #dee2e6;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        nav a {
+            margin: 0 1rem;
+            color: var(--dark);
+        }
+
+        nav a:hover {
+            color: var(--purple);
+        }
+
+        .auth {
+            background: var(--purple);
+            color: #fff;
+            padding: .5rem 1rem;
+            border-radius: 4px;
+        }
+
+        .auth:hover {
+            background: #3f7ccb;
+        }
+
+        /* -------------------------------------------------
+   Main
+   ------------------------------------------------- */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Filter tabs */
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: .5rem;
+            margin-bottom: 2rem;
+        }
+
+        .filters button {
+            background: #fff;
+            border: 1px solid #ced4da;
+            padding: .5rem 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all .2s;
+        }
+
+        .filters button.active,
+        .filters button:hover {
+            background: var(--purple);
+            color: #fff;
+            border-color: var(--purple);
+        }
+
+        /* Grid of vehicles */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-img {
+            height: 150px;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            fill: #adb5bd;
+        }
+
+        .card-body {
+            padding: 1rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--purple);
+            margin-bottom: .5rem;
+        }
+
+        .features {
+            display: flex;
+            gap: .75rem;
+            margin-bottom: 1rem;
+            font-size: .875rem;
+            color: var(--gray);
+        }
+
+        .features span {
+            white-space: nowrap;
+        }
+
+        .btn {
+            background: var(--purple);
+            color: #fff;
+            border: none;
+            padding: .75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: auto;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #4d60dd;
+        }
+        #bt{
+            padding: 8px 14px 8px 14px;
+            background-color: rgb(41, 157, 225);
+            border-radius: 0%;
+            border: none;
+            color: white;
+        }
+
+        /* -------------------------------------------------
+   Footer (optional)
+   ------------------------------------------------- */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #6c757d;
+            font-size: .875rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">SpeedRental</div>
+        <a href="/car_rental_app/templates/base.html" class="auth">Logout</a>
+    </header>
+
+    <main>
+        <h1>Select a vehicle group</h1>
+
+        <div class="filters">
+            <button class="active">All vehicles</button>
+            <button>Sedan</button>
+            <button>Cabriolet</button>
+            <button>Pickup</button>
+            <button>Minivan</button>
+        </div>
+
+        <div class="grid">
+            <!-- Card 1 -->
+            <div class="card">
+                <div class="card-img">
+                    <!-- Simple sedan silhouette -->
+                    <img src="https://www.topgear.com/sites/default/files/cars-car/image/2024/01/1%20Rolls-Royce%20Cullinan%20review.jpg?w=1280&h=720"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$25</div>
+                    <div>Rolls Royce</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>4 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://theluxereview.com/wp-content/uploads/2023/12/rolls-royce-spectre-full-view.jpg?w=950"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$50</div>
+                    <div>Rolls Royce</div>
+                    <div class="features">
+                        <span>Manual</span>
+                        <span>2 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1f/2019_Ford_Mustang_GT_5.0_facelift.jpg"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$45</div>
+                    <div>Mustang</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>5 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.clickdealer.co.uk/blog/1584/featured_images/2402cb4fb4e20dbb56fd7fd466319c64.jpg"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$40</div>
+                    <div>Mustang</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>2 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/ford-ranger-phev-review-2025-01-front-tracking.jpg?itok=JawtjudX"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$35</div>
+                    <div>Ford Ranger</div>
+                    <div class="features">
+                        <span>Manual</span>
+                        <span>5 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://wildwilliesaccessories.com/cdn/shop/articles/Craigs_raptor_R.jpg?v=1744896650"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$50</div>
+                    <div>Ford Raptor</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>2 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 7 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://www.topgear.com/sites/default/files/2024/04/1-Jeep-Wrangler-review-2024.jpg"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$50</div>
+                    <div>Jeep</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>7 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 8 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/bb/2023_Lamborghini_Aventador_Ultimae.jpg"
+                        alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$60</div>
+                    <div>Lumbogihni</div>
+                    <div class="features">
+                        <span>Manual</span>
+                        <span>5 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 9 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn.mos.cms.futurecdn.net/gbrwpYCQJHctvSzDxnh3SF.jpg" alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$70</div>
+                    <div>Lumbogihni</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>4 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+            <!-- Card 10 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://www.auto-verissimo.pt/wp-content/uploads/2023/11/Mercedes-AMG-GT-43-06.webp" alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$50</div>
+                    <div>Mercedes</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>4 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+            <!-- Card 11 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://cdn.jdpower.com/JDPA_2020%20Mercedes-AMG%20C63%20S%20Selenite%20Gray%20Front%20View.jpg" alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$65</div>
+                    <div>Mercesdes</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>4 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+            <!-- Card 12 -->
+            <div class="card">
+                <div class="card-img">
+                    <img src="https://i.ytimg.com/vi/pvB5ZTHQBGA/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAfb-d1ICf1qWZVO_bFJKO_34OUAQ" alt="">
+                </div>
+                <div class="card-body">
+                    <div class="price">$80</div>
+                    <div>Cybertruck</div>
+                    <div class="features">
+                        <span>Automatic</span>
+                        <span>4 seats</span>
+                        <span>Air Conditioning</span>
+                    </div>
+                    <!-- Example for the first car -->
+                    <a
+                        href="/car_rental_app/templates/users/confirm-booking.html">
+                        <button id="bt">View Details</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Car Rental – All rights reserved.
+    </footer>
+
+</body>
+
+</html>
